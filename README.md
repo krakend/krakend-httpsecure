@@ -1,4 +1,4 @@
-KrakenD HTTP Security
+KrakenD HTTP Secure
 ====
 
 A complete http security layer for the [KakenD](http://www.krakend.io) framework
