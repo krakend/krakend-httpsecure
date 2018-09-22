@@ -1,6 +1,8 @@
 package gin
 
 import (
+	"errors"
+
 	"github.com/devopsfaith/krakend/config"
 	"github.com/gin-gonic/gin"
 	"github.com/unrolled/secure"
@@ -8,9 +10,15 @@ import (
 	"github.com/devopsfaith/krakend-httpsecure"
 )
 
+var errNoConfig = errors.New("no config present for the httpsecure module")
+
 // Register registers the secure middleware into the gin engine
 func Register(cfg config.ExtraConfig, engine *gin.Engine) error {
-	engine.Use(NewSecureMw(cfg))
+	opt, ok := httpsecure.ConfigGetter(cfg).(secure.Options)
+	if !ok {
+		return errNoConfig
+	}
+	engine.Use(secureMw(opt))
 	return nil
 }
 
@@ -21,6 +29,11 @@ func NewSecureMw(cfg config.ExtraConfig) gin.HandlerFunc {
 		return func(c *gin.Context) {}
 	}
 
+	return secureMw(opt)
+}
+
+// secureMw creates a secured middleware for the gin engine
+func secureMw(opt secure.Options) gin.HandlerFunc {
 	secureMiddleware := secure.New(opt)
 
 	return func(c *gin.Context) {
