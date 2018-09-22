@@ -8,19 +8,20 @@ import (
 // Namespace is the key to use to store and access the custom config data
 const Namespace = "github.com/devopsfaith/krakend-httpsecure"
 
-// ZeroCfg is the zero value for the Config struct
+// ZeroCfg is the zero value for the Config struct.
+// Deprecated: the config getter does not return a ZeroCfg when no config available
 var ZeroCfg = secure.Options{}
 
 // ConfigGetter implements the config.ConfigGetter interface. It parses the extra config for the
-// package and returns a ZeroCfg if something goes wrong.
+// package and returns nil if something goes wrong.
 func ConfigGetter(e config.ExtraConfig) interface{} {
 	v, ok := e[Namespace]
 	if !ok {
-		return ZeroCfg
+		return nil
 	}
 	tmp, ok := v.(map[string]interface{})
 	if !ok {
-		return ZeroCfg
+		return nil
 	}
 
 	cfg := secure.Options{}

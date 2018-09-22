@@ -22,13 +22,13 @@ func TestNewSecureMw(t *testing.T) {
 	}))
 
 	for status, URLs := range map[int][]string{
-		http.StatusOK: []string{
+		http.StatusOK: {
 			"http://host1/",
 			"https://host1/",
 			"http://subdomain1.host2/",
 			"https://subdomain2.host2/",
 		},
-		http.StatusInternalServerError: []string{
+		http.StatusInternalServerError: {
 			"http://unknown/",
 			"https://subdomain.host1/",
 			"http://host2/",
