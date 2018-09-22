@@ -35,13 +35,13 @@ func TestRegister(t *testing.T) {
 	})
 
 	for status, URLs := range map[int][]string{
-		http.StatusOK: []string{
+		http.StatusOK: {
 			"http://host1/should_access",
 			"https://host1/should_access",
 			"http://subdomain1.host2/should_access",
 			"https://subdomain2.host2/should_access",
 		},
-		http.StatusInternalServerError: []string{
+		http.StatusInternalServerError: {
 			"http://unknown/never_access",
 			"https://subdomain.host1/never_access",
 			"http://host2/never_access",
@@ -68,7 +68,7 @@ func TestRegister(t *testing.T) {
 	if w.Result().Header.Get("Location") != "/target" {
 		t.Error("unexpected value for the location header:", w.Result().Header.Get("Location"))
 	}
-	if len(w.Result().Header) != 1 {
+	if len(w.Result().Header) != 2 {
 		t.Error("unexpected number of headers:", len(w.Result().Header), w.Result().Header)
 	}
 }
