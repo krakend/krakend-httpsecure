@@ -51,7 +51,9 @@ func getStrings(data map[string]interface{}, key string, v *[]string) {
 	if vs, ok := data[key]; ok {
 		result := []string{}
 		for _, v := range vs.([]interface{}) {
-			result = append(result, v.(string))
+			if s, ok := v.(string); ok {
+				result = append(result, s)
+			}
 		}
 		*v = result
 	}
@@ -60,17 +62,29 @@ func getStrings(data map[string]interface{}, key string, v *[]string) {
 func getString(data map[string]interface{}, key string, v *string) {
 	if val, ok := data[key]; ok {
 		*v = val.(string)
+		if s, ok := val.(string); ok {
+			*v = s
+		}
 	}
 }
 
 func getBool(data map[string]interface{}, key string, v *bool) {
 	if val, ok := data[key]; ok {
-		*v = val.(bool)
+		if b, ok := val.(bool); ok {
+			*v = b
+		}
 	}
 }
 
 func getInt64(data map[string]interface{}, key string, v *int64) {
 	if val, ok := data[key]; ok {
-		*v = int64(val.(int))
+		switch i := val.(type) {
+		case int64:
+			*v = i
+		case int:
+			*v = int64(i)
+		case float64:
+			*v = int64(i)
+		}
 	}
 }
