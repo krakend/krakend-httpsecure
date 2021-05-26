@@ -1,7 +1,7 @@
 package httpsecure
 
 import (
-	"github.com/devopsfaith/krakend/config"
+	"github.com/luraproject/lura/config"
 	"github.com/unrolled/secure"
 )
 
