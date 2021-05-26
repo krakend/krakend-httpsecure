@@ -3,8 +3,8 @@ package mux
 import (
 	"net/http"
 
-	"github.com/devopsfaith/krakend/config"
-	"github.com/devopsfaith/krakend/router/mux"
+	"github.com/luraproject/lura/config"
+	"github.com/luraproject/lura/router/mux"
 	"github.com/unrolled/secure"
 
 	"github.com/devopsfaith/krakend-httpsecure"
