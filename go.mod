@@ -1,14 +1,12 @@
-module github.com/devopsfaith/krakend-httpsecure
+module github.com/devopsfaith/krakend-httpsecure/v2
 
 go 1.16
 
 require (
 	github.com/codegangsta/negroni v1.0.0 // indirect
-	github.com/gin-contrib/sse v0.0.0-20170109093832-22d885f9ecc7 // indirect
-	github.com/gin-gonic/gin v1.3.0
+	github.com/gin-gonic/gin v1.7.4
 	github.com/google/gofuzz v1.2.0 // indirect
-	github.com/json-iterator/go v0.0.0-20170829155851-36b14963da70 // indirect
-	github.com/luraproject/lura v1.4.0 // indirect
+	github.com/luraproject/lura/v2 v2.0.0-dev
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/unrolled/secure v0.0.0-20180918153822-f340ee86eb8b
 	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
