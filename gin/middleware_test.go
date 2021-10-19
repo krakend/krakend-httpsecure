@@ -75,7 +75,7 @@ func TestRegister(t *testing.T) {
 
 func TestRegister_ko(t *testing.T) {
 	err := Register(config.ExtraConfig{}, nil)
-	if err != errNoConfig {
-		t.Error("expecting errNoConfig. got:", err)
+	if err != ErrNoConfig {
+		t.Error("expecting ErrNoConfig. got:", err)
 	}
 }
