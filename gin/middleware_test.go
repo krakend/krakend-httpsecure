@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/luraproject/lura/config"
+	"github.com/luraproject/lura/v2/config"
 
-	"github.com/devopsfaith/krakend-httpsecure"
+	"github.com/devopsfaith/krakend-httpsecure/v2"
 )
 
 func TestRegister(t *testing.T) {
@@ -75,7 +75,7 @@ func TestRegister(t *testing.T) {
 
 func TestRegister_ko(t *testing.T) {
 	err := Register(config.ExtraConfig{}, nil)
-	if err != errNoConfig {
-		t.Error("expecting errNoConfig. got:", err)
+	if err != ErrNoConfig {
+		t.Error("expecting ErrNoConfig. got:", err)
 	}
 }
