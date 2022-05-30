@@ -15,12 +15,15 @@ func ExampleConfigGetter() {
 			"sts_seconds":        10.0,
 			"ssl_redirect":       true,
 			"ssl_host":           "secure.example.com",
+			"ssl_proxy_headers": map[string]interface{}{
+				"X-Forwarded-Proto": "https",
+			},
 		},
 	})
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false false false false true false false false false       secure.example.com [host1] [x-custom-header] <nil> map[] 10 }
+	// {false false false false false false true false false false false       secure.example.com [host1] [x-custom-header] <nil> map[X-Forwarded-Proto:https] 10 }
 }
 
 func ExampleConfigGetter_fromParsedData() {
