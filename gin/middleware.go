@@ -7,7 +7,7 @@ import (
 	"github.com/luraproject/lura/v2/config"
 	secure "github.com/unrolled/secure"
 
-	httpsecure "github.com/devopsfaith/krakend-httpsecure/v2"
+	httpsecure "github.com/krakendio/krakend-httpsecure/v2"
 )
 
 var ErrNoConfig = errors.New("no config present for the httpsecure module")
