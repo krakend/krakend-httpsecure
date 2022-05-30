@@ -26,7 +26,9 @@ func ExampleConfigGetter() {
 func ExampleConfigGetter_fromParsedData() {
 	sample := `{
             "allowed_hosts": ["host1"],
-            "ssl_proxy_headers": {},
+            "ssl_proxy_headers": {
+				"X-Forwarded-Proto": "https"
+			},
             "sts_seconds": 300,
             "frame_deny": true,
             "sts_include_subdomains": true
@@ -42,5 +44,5 @@ func ExampleConfigGetter_fromParsedData() {
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false true false false false false false true false        [host1] [] <nil> map[] 300 }
+	// {false false false true false false false false false true false        [host1] [] <nil> map[X-Forwarded-Proto:https] 300 }
 }
