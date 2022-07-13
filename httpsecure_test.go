@@ -15,18 +15,23 @@ func ExampleConfigGetter() {
 			"sts_seconds":        10.0,
 			"ssl_redirect":       true,
 			"ssl_host":           "secure.example.com",
+			"ssl_proxy_headers": map[string]interface{}{
+				"X-Forwarded-Proto": "https",
+			},
 		},
 	})
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false false false false true false false false false       secure.example.com [host1] [x-custom-header] <nil> map[] 10 }
+	// {false false false false false false true false false false false       secure.example.com [host1] [x-custom-header] <nil> map[X-Forwarded-Proto:https] 10 }
 }
 
 func ExampleConfigGetter_fromParsedData() {
 	sample := `{
             "allowed_hosts": ["host1"],
-            "ssl_proxy_headers": {},
+            "ssl_proxy_headers": {
+				"X-Forwarded-Proto": "https"
+			},
             "sts_seconds": 300,
             "frame_deny": true,
             "sts_include_subdomains": true
@@ -42,5 +47,5 @@ func ExampleConfigGetter_fromParsedData() {
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false true false false false false false true false        [host1] [] <nil> map[] 300 }
+	// {false false false true false false false false false true false        [host1] [] <nil> map[X-Forwarded-Proto:https] 300 }
 }
