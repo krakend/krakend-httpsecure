@@ -38,7 +38,6 @@ func secureMw(opt secure.Options) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		err := secureMiddleware.Process(c.Writer, c.Request)
-
 		if err != nil {
 			c.Abort()
 			return
