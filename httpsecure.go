@@ -33,7 +33,9 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 
 	getString(tmp, "custom_frame_options_value", &cfg.CustomFrameOptionsValue)
 	getString(tmp, "content_security_policy", &cfg.ContentSecurityPolicy)
-	getString(tmp, "public_key", &cfg.PublicKey)
+	// the feature for HPKP is no longer recommended and has been removed:
+	// https://github.com/unrolled/secure/commit/58f2e47bb3a34d4e58aabe6fa57e71255b89da90
+	// getString(tmp, "public_key", &cfg.PublicKey)
 	getString(tmp, "ssl_host", &cfg.SSLHost)
 	getString(tmp, "referrer_policy", &cfg.ReferrerPolicy)
 

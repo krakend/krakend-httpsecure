@@ -20,7 +20,7 @@ func ExampleConfigGetter() {
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false false false false true false false false false       secure.example.com [host1] [x-custom-header] <nil> map[] 10 }
+	// {false false false false false false true false false false false         secure.example.com [host1] false <nil> [x-custom-header] <nil> map[] 10 }
 }
 
 func ExampleConfigGetter_fromParsedData() {
@@ -42,5 +42,5 @@ func ExampleConfigGetter_fromParsedData() {
 	fmt.Println(cfg)
 
 	// output:
-	// {false false false true false false false false false true false        [host1] [] <nil> map[] 300 }
+	// {false false false true false false false false false true false          [host1] false <nil> [] <nil> map[] 300 }
 }
