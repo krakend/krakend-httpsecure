@@ -51,7 +51,7 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 
 func getStrings(data map[string]interface{}, key string, v *[]string) {
 	if vs, ok := data[key]; ok {
-		result := []string{}
+		var result []string
 		for _, v := range vs.([]interface{}) {
 			if s, ok := v.(string); ok {
 				result = append(result, s)
