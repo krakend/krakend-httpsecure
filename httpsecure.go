@@ -31,6 +31,7 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	getStrings(tmp, "host_proxy_headers", &cfg.HostsProxyHeaders)
 
 	getInt64(tmp, "sts_seconds", &cfg.STSSeconds)
+	getBool(tmp, "force_sts_header", &cfg.ForceSTSHeader)
 
 	getString(tmp, "custom_frame_options_value", &cfg.CustomFrameOptionsValue)
 	getString(tmp, "content_security_policy", &cfg.ContentSecurityPolicy)
