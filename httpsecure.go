@@ -27,6 +27,7 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	cfg := secure.Options{}
 
 	getStrings(tmp, "allowed_hosts", &cfg.AllowedHosts)
+	getBool(tmp, "allowed_hosts_are_regex", &cfg.AllowedHostsAreRegex)
 	getStrings(tmp, "host_proxy_headers", &cfg.HostsProxyHeaders)
 
 	getInt64(tmp, "sts_seconds", &cfg.STSSeconds)
@@ -46,6 +47,8 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	getBool(tmp, "frame_deny", &cfg.FrameDeny)
 	getBool(tmp, "ssl_redirect", &cfg.SSLRedirect)
 
+	getStringMap(tmp, "ssl_proxy_headers", &cfg.SSLProxyHeaders)
+
 	return cfg
 }
 
@@ -58,6 +61,24 @@ func getStrings(data map[string]interface{}, key string, v *[]string) {
 			}
 		}
 		*v = result
+	}
+}
+
+func getStringMap(data map[string]interface{}, key string, v *map[string]string) {
+	if v == nil {
+		return
+	}
+	im, ok := data[key]
+	if !ok {
+		return
+	}
+	m, ok := im.(map[string]string)
+	if !ok {
+		return
+	}
+
+	for mk, mv := range m {
+		(*v)[mk] = mv
 	}
 }
 
