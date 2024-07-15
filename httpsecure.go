@@ -27,13 +27,16 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	cfg := secure.Options{}
 
 	getStrings(tmp, "allowed_hosts", &cfg.AllowedHosts)
+	getBool(tmp, "allowed_hosts_are_regex", &cfg.AllowedHostsAreRegex)
 	getStrings(tmp, "host_proxy_headers", &cfg.HostsProxyHeaders)
 
 	getInt64(tmp, "sts_seconds", &cfg.STSSeconds)
 
 	getString(tmp, "custom_frame_options_value", &cfg.CustomFrameOptionsValue)
 	getString(tmp, "content_security_policy", &cfg.ContentSecurityPolicy)
-	getString(tmp, "public_key", &cfg.PublicKey)
+	// the feature for HPKP is no longer recommended and has been removed:
+	// https://github.com/unrolled/secure/commit/58f2e47bb3a34d4e58aabe6fa57e71255b89da90
+	// getString(tmp, "public_key", &cfg.PublicKey)
 	getString(tmp, "ssl_host", &cfg.SSLHost)
 	getString(tmp, "referrer_policy", &cfg.ReferrerPolicy)
 
@@ -44,18 +47,38 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	getBool(tmp, "frame_deny", &cfg.FrameDeny)
 	getBool(tmp, "ssl_redirect", &cfg.SSLRedirect)
 
+	getStringMap(tmp, "ssl_proxy_headers", &cfg.SSLProxyHeaders)
+
 	return cfg
 }
 
 func getStrings(data map[string]interface{}, key string, v *[]string) {
 	if vs, ok := data[key]; ok {
-		result := []string{}
+		var result []string
 		for _, v := range vs.([]interface{}) {
 			if s, ok := v.(string); ok {
 				result = append(result, s)
 			}
 		}
 		*v = result
+	}
+}
+
+func getStringMap(data map[string]interface{}, key string, v *map[string]string) {
+	if v == nil {
+		return
+	}
+	im, ok := data[key]
+	if !ok {
+		return
+	}
+	m, ok := im.(map[string]string)
+	if !ok {
+		return
+	}
+
+	for mk, mv := range m {
+		(*v)[mk] = mv
 	}
 }
 
