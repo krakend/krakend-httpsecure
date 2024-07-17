@@ -48,8 +48,7 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 	getBool(tmp, "frame_deny", &cfg.FrameDeny)
 	getBool(tmp, "ssl_redirect", &cfg.SSLRedirect)
 
-	getStringMap(tmp, "ssl_proxy_headers", &cfg.SSLProxyHeaders)
-
+	cfg.SSLProxyHeaders = getStringMap(tmp, "ssl_proxy_headers")
 	return cfg
 }
 
@@ -71,22 +70,23 @@ func getStrings(data map[string]interface{}, key string, v *[]string) {
 	*v = result
 }
 
-func getStringMap(data map[string]interface{}, key string, v *map[string]string) {
-	if v == nil {
-		return
-	}
+func getStringMap(data map[string]interface{}, key string) map[string]string {
 	im, ok := data[key]
 	if !ok {
-		return
+		return nil
 	}
-	m, ok := im.(map[string]string)
+	mi, ok := im.(map[string]interface{})
 	if !ok {
-		return
+		return nil
 	}
 
-	for mk, mv := range m {
-		(*v)[mk] = mv
+	nm := make(map[string]string, len(mi))
+	for mk, mv := range mi {
+		if s, ok := mv.(string); ok {
+			nm[mk] = s
+		}
 	}
+	return nm
 }
 
 func getString(data map[string]interface{}, key string, v *string) {
