@@ -54,15 +54,21 @@ func ConfigGetter(e config.ExtraConfig) interface{} {
 }
 
 func getStrings(data map[string]interface{}, key string, v *[]string) {
-	if vs, ok := data[key]; ok {
-		var result []string
-		for _, v := range vs.([]interface{}) {
-			if s, ok := v.(string); ok {
-				result = append(result, s)
-			}
-		}
-		*v = result
+	vi, ok := data[key]
+	if !ok {
+		return
 	}
+	va, ok := vi.([]interface{})
+	if !ok {
+		return
+	}
+	var result []string
+	for _, v := range va {
+		if s, ok := v.(string); ok {
+			result = append(result, s)
+		}
+	}
+	*v = result
 }
 
 func getStringMap(data map[string]interface{}, key string, v *map[string]string) {
@@ -84,12 +90,15 @@ func getStringMap(data map[string]interface{}, key string, v *map[string]string)
 }
 
 func getString(data map[string]interface{}, key string, v *string) {
-	if val, ok := data[key]; ok {
-		*v = val.(string)
-		if s, ok := val.(string); ok {
-			*v = s
-		}
+	vi, ok := data[key]
+	if !ok {
+		return
 	}
+	vs, ok := vi.(string)
+	if !ok {
+		return
+	}
+	*v = vs
 }
 
 func getBool(data map[string]interface{}, key string, v *bool) {
