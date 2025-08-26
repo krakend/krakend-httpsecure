@@ -26,7 +26,7 @@ func Register(cfg config.ExtraConfig, engine *gin.Engine) error {
 func NewSecureMw(cfg config.ExtraConfig) gin.HandlerFunc {
 	opt, ok := httpsecure.ConfigGetter(cfg).(secure.Options)
 	if !ok {
-		return func(c *gin.Context) {}
+		return func(_ *gin.Context) {}
 	}
 
 	return secureMw(opt)

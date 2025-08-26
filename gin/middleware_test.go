@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/luraproject/lura/v2/config"
 
-	"github.com/krakend/krakend-httpsecure/v2"
+	httpsecure "github.com/krakend/krakend-httpsecure/v2"
 )
 
 func TestRegister(t *testing.T) {
@@ -50,7 +50,7 @@ func TestRegister(t *testing.T) {
 	} {
 		for _, URL := range URLs {
 			w := httptest.NewRecorder()
-			req, _ := http.NewRequest("GET", URL, nil)
+			req, _ := http.NewRequest("GET", URL, http.NoBody)
 			engine.ServeHTTP(w, req)
 			if w.Result().StatusCode != status {
 				t.Errorf("request %s unexpected status code! want %d, have %d\n", URL, status, w.Result().StatusCode)
@@ -60,7 +60,7 @@ func TestRegister(t *testing.T) {
 
 	URL := "https://host1/no_headers"
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", URL, nil)
+	req, _ := http.NewRequest("GET", URL, http.NoBody)
 	engine.ServeHTTP(w, req)
 	if w.Result().StatusCode != http.StatusPermanentRedirect {
 		t.Errorf("request %s unexpected status code! want %d, have %d\n", URL, http.StatusPermanentRedirect, w.Result().StatusCode)

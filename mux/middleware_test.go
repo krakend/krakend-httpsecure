@@ -7,7 +7,7 @@ import (
 
 	"github.com/luraproject/lura/v2/config"
 
-	"github.com/krakend/krakend-httpsecure/v2"
+	httpsecure "github.com/krakend/krakend-httpsecure/v2"
 )
 
 func TestNewSecureMw(t *testing.T) {
@@ -17,7 +17,7 @@ func TestNewSecureMw(t *testing.T) {
 		},
 	}
 	mw := NewSecureMw(cfg)
-	handler := mw.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	handler := mw.Handler(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(200)
 	}))
 
@@ -37,7 +37,7 @@ func TestNewSecureMw(t *testing.T) {
 	} {
 		for _, URL := range URLs {
 			w := httptest.NewRecorder()
-			req, _ := http.NewRequest("GET", URL, nil)
+			req, _ := http.NewRequest("GET", URL, http.NoBody)
 			handler.ServeHTTP(w, req)
 			if w.Result().StatusCode != status {
 				t.Errorf("request %s unexpected status code! want %d, have %d\n", URL, status, w.Result().StatusCode)
