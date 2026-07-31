@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/luraproject/lura/v2/config"
+	"github.com/luraproject/lura/v3/config"
 
-	httpsecure "github.com/krakend/krakend-httpsecure/v2"
+	httpsecure "github.com/krakend/krakend-httpsecure/v3"
 )
 
 func TestRegister(t *testing.T) {

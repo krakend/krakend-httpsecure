@@ -1,12 +1,12 @@
 package httpsecure
 
 import (
-	"github.com/luraproject/lura/v2/config"
+	"github.com/luraproject/lura/v3/config"
 	"github.com/unrolled/secure"
 )
 
 // Namespace is the key to use to store and access the custom config data
-const Namespace = "github_com/devopsfaith/krakend-httpsecure"
+const Namespace = "security/http"
 
 // ZeroCfg is the zero value for the Config struct.
 // Deprecated: the config getter does not return a ZeroCfg when no config available
