@@ -4,10 +4,10 @@ import (
 	"errors"
 
 	"github.com/gin-gonic/gin"
-	"github.com/luraproject/lura/v2/config"
+	"github.com/luraproject/lura/v3/config"
 	secure "github.com/unrolled/secure"
 
-	httpsecure "github.com/krakend/krakend-httpsecure/v2"
+	httpsecure "github.com/krakend/krakend-httpsecure/v3"
 )
 
 var ErrNoConfig = errors.New("no config present for the httpsecure module")
